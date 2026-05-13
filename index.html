@@ -27,14 +27,13 @@ body {
 }
 
 /* ---------- ФОН ---------- */
-/* Можешь заменить url на свою картинку фона! */
 body::before {
     content: '';
     position: fixed;
     inset: 0;
     z-index: -2;
-    /* Замени 'bg_texture.jpg' на свою картинку, если хочешь */
     background:
+        url('bg_texture.jpg') center/cover no-repeat,
         /* Акварельные разводы */
         radial-gradient(ellipse at 20% 20%, rgba(176,141,87,0.06) 0%, transparent 50%),
         radial-gradient(ellipse at 80% 40%, rgba(200,180,140,0.05) 0%, transparent 50%),
@@ -52,7 +51,7 @@ body::before {
         linear-gradient(180deg, #fdfbf7 0%, #faf7f0 30%, #f8f4ec 60%, #faf7f2 100%);
 }
 
-/* ---------- АНИМИРОВАННЫЕ ЛИСТЬЯ (стильные, не мультяшные) ---------- */
+/* ---------- АНИМИРОВАННЫЕ ЛИСТЬЯ (стильные) ---------- */
 .elegant-leaves {
     position: fixed;
     inset: 0;
@@ -68,7 +67,6 @@ body::before {
     animation: elegantFall linear infinite;
 }
 
-/* Использую изящные контуры — веточки с листьями */
 .elegant-leaf::before {
     content: '';
     display: block;
@@ -123,7 +121,7 @@ body::before {
     }
 }
 
-/* ---------- HERO (прозрачнее на 70%) ---------- */
+/* ---------- HERO (прозрачный) ---------- */
 .hero {
     min-height: 100vh;
     display: flex;
@@ -145,7 +143,7 @@ body::before {
 .hero .overlay {
     position: relative;
     z-index: 1;
-    background: rgba(255, 255, 255, 0.3); /* Было 0.8, стало 0.3 = 70% прозрачности */
+    background: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     padding: 60px 30px;
@@ -353,7 +351,6 @@ h1 {
     display: inline-block;
 }
 
-/* Бокалы */
 .banket-icon-wrap .icon-main {
     font-size: 28px;
     display: inline-block;
@@ -366,7 +363,6 @@ h1 {
     transform: scale(1.1);
 }
 
-/* Искорки вокруг бокалов */
 .sparkle {
     position: absolute;
     font-size: 12px;
@@ -404,7 +400,6 @@ h1 {
 .sparkle-3 { --dx: 4px; --dy: -6px; --dx2: 8px; --dy2: -12px; }
 .sparkle-4 { --dx: -6px; --dy: -7px; --dx2: -12px; --dy2: -14px; }
 
-/* Бокалы чокаются при наведении */
 @keyframes toast {
     0%, 100% { transform: rotate(0); }
     20% { transform: rotate(-10deg); }
@@ -551,7 +546,7 @@ h1 {
 </head>
 <body>
 
-<!-- Стильные анимированные листья (веточки) -->
+<!-- Стильные анимированные листья -->
 <div class="elegant-leaves">
     <div class="elegant-leaf"></div>
     <div class="elegant-leaf"></div>
