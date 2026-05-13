@@ -449,7 +449,15 @@ h1 {
     font-size: 14px;
     color: #7a8b74;
     font-weight: 300;
-    margin-bottom: 20px;
+    margin-bottom: 8px;
+}
+
+.poll-counter {
+    font-size: 12px;
+    color: #b08d57;
+    margin-bottom: 18px;
+    font-weight: 400;
+    opacity: 0.8;
 }
 
 .poll-buttons {
@@ -469,11 +477,13 @@ h1 {
     color: #6b7b65;
     transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 6px;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .poll-btn .emoji {
@@ -511,28 +521,36 @@ h1 {
     animation: pop 0.5s ease-out;
 }
 
+/* Счётчик на выбранной кнопке */
+.poll-btn.selected::after {
+    content: attr(data-counter);
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 22px;
+    height: 22px;
+    background: #b08d57;
+    color: white;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: badgePop 0.4s ease-out;
+    box-shadow: 0 2px 8px rgba(176,141,87,0.3);
+}
+
+@keyframes badgePop {
+    0% { transform: scale(0); }
+    60% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
 @keyframes pop {
     0% { transform: scale(1); }
     40% { transform: scale(1.4); }
     100% { transform: scale(1); }
-}
-
-/* Галочка на выбранной */
-.poll-btn.selected::before {
-    content: '✓';
-    position: absolute;
-    top: 8px;
-    right: 12px;
-    font-size: 12px;
-    color: #b08d57;
-    font-weight: bold;
-    animation: checkPop 0.4s ease-out;
-}
-
-@keyframes checkPop {
-    0% { transform: scale(0); opacity: 0; }
-    60% { transform: scale(1.3); opacity: 1; }
-    100% { transform: scale(1); opacity: 1; }
 }
 
 /* Тост "Спасибо" */
@@ -549,6 +567,37 @@ h1 {
 .poll-thanks.show {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Лимит исчерпан */
+.poll-btn.locked {
+    opacity: 0.45;
+    pointer-events: none;
+    filter: grayscale(30%);
+}
+
+/* ---------- КОНФЕТТИ ---------- */
+.confetti-particle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    font-size: 16px;
+    animation: confettiFall 1.2s ease-out forwards;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(0);
+        opacity: 1;
+    }
+    20% {
+        transform: translate(var(--cx), var(--cy)) rotate(180deg) scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--fx), var(--fy)) rotate(720deg) scale(0.3);
+        opacity: 0;
+    }
 }
 
 /* ---------- FOOTER CARD ---------- */
@@ -703,10 +752,11 @@ h1 {
         </div>
     </div>
 
-    <!-- НОВЫЙ БЛОК: ОПРОС -->
+    <!-- БЛОК ОПРОСА (множественный выбор до 3) -->
     <div class="card card-from-right">
         <h2>🍷 Ваши предпочтения</h2>
-        <p class="poll-subtitle">Какой алкоголь вы предпочитаете?<br>Выберите один вариант:</p>
+        <p class="poll-subtitle">Какой алкоголь вы предпочитаете?</p>
+        <p class="poll-counter" id="pollCounter">Выберите до 3 вариантов (0/3)</p>
         <div class="poll-buttons" id="pollButtons">
             <button class="poll-btn" data-drink="Водка">
                 <span class="emoji">🍸</span> Водка
@@ -727,7 +777,7 @@ h1 {
                 <span class="emoji">🍶</span> Самогон 🎉
             </button>
         </div>
-        <div class="poll-thanks" id="pollThanks">Спасибо! 🎉 Будем знать ваши предпочтения!</div>
+        <div class="poll-thanks" id="pollThanks">Отлично! Будем знать ваши предпочтения! 🎉</div>
     </div>
 
     <div class="card card-from-left card-final">
@@ -813,27 +863,141 @@ if (quoteEl) {
     observer.observe(quoteEl);
 }
 
-// ОПРОС
+// ============ ОПРОС С МНОЖЕСТВЕННЫМ ВЫБОРОМ ============
+const MAX_SELECTION = 3;
 const pollButtons = document.querySelectorAll('.poll-btn');
 const pollThanks = document.getElementById('pollThanks');
+const pollCounter = document.getElementById('pollCounter');
+const selectedDrinks = [];
+
+function updateCounter() {
+    const count = selectedDrinks.length;
+    pollCounter.textContent = `Выберите до 3 вариантов (${count}/${MAX_SELECTION})`;
+
+    if (count >= MAX_SELECTION) {
+        pollCounter.textContent += ' — лимит исчерпан';
+        pollCounter.style.color = '#b08d57';
+        // Блокируем невыбранные
+        pollButtons.forEach(b => {
+            if (!b.classList.contains('selected')) {
+                b.classList.add('locked');
+            }
+        });
+    } else {
+        pollCounter.style.color = '#b08d57';
+        // Разблокируем
+        pollButtons.forEach(b => b.classList.remove('locked'));
+    }
+}
+
+function updateBadges() {
+    // Обновляем счётчики на выбранных кнопках
+    pollButtons.forEach(b => {
+        const drink = b.dataset.drink;
+        const index = selectedDrinks.indexOf(drink);
+        if (index !== -1) {
+            b.setAttribute('data-counter', index + 1);
+        }
+    });
+}
+
+function spawnConfetti(x, y) {
+    const emojis = ['✨', '🌟', '💫', '🎉', '🍾', '💛', '🥂', '⭐', '🌸', '✿'];
+    const count = 14;
+
+    for (let i = 0; i < count; i++) {
+        const particle = document.createElement('span');
+        particle.className = 'confetti-particle';
+        particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        particle.style.left = x + 'px';
+        particle.style.top = y + 'px';
+        particle.style.fontSize = (12 + Math.random() * 18) + 'px';
+
+        // Случайная траектория
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 40 + Math.random() * 80;
+        particle.style.setProperty('--cx', Math.cos(angle) * distance * 0.5 + 'px');
+        particle.style.setProperty('--cy', Math.sin(angle) * distance * 0.5 - 30 + 'px');
+        particle.style.setProperty('--fx', Math.cos(angle) * distance + 'px');
+        particle.style.setProperty('--fy', Math.sin(angle) * distance - 50 + 'px');
+
+        document.body.appendChild(particle);
+
+        // Удаляем после анимации
+        setTimeout(() => {
+            particle.remove();
+        }, 1300);
+    }
+}
 
 pollButtons.forEach(btn => {
-    btn.addEventListener('click', function() {
-        // Убираем selected у всех
-        pollButtons.forEach(b => b.classList.remove('selected'));
-        // Добавляем selected на выбранную
+    btn.addEventListener('click', function(e) {
+        const drink = this.dataset.drink;
+
+        // Если уже выбрана — снимаем выбор
+        if (this.classList.contains('selected')) {
+            this.classList.remove('selected');
+            this.removeAttribute('data-counter');
+            const index = selectedDrinks.indexOf(drink);
+            if (index !== -1) selectedDrinks.splice(index, 1);
+            updateCounter();
+            updateBadges();
+            if (selectedDrinks.length === 0) {
+                pollThanks.classList.remove('show');
+            }
+            return;
+        }
+
+        // Если лимит исчерпан
+        if (selectedDrinks.length >= MAX_SELECTION) {
+            // Лёгкая тряска заблокированных кнопок
+            pollButtons.forEach(b => {
+                if (b.classList.contains('locked')) {
+                    b.style.animation = 'none';
+                    b.offsetHeight;
+                    b.style.animation = 'shake 0.5s ease';
+                }
+            });
+            return;
+        }
+
+        // Выбираем
         this.classList.add('selected');
-        // Показываем "Спасибо"
-        pollThanks.classList.add('show');
-        // Анимация эмодзи
+        selectedDrinks.push(drink);
+        updateCounter();
+        updateBadges();
+
+        // Конфетти
+        const rect = this.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        spawnConfetti(cx, cy);
+
+        // Эмодзи поп
         const emoji = this.querySelector('.emoji');
         emoji.style.animation = 'none';
-        emoji.offsetHeight; // триггер reflow
+        emoji.offsetHeight;
         emoji.style.animation = 'pop 0.5s ease-out';
-        // Лог в консоль (для статистики)
-        console.log('Гость выбрал:', this.dataset.drink);
+
+        // Показываем "Спасибо"
+        pollThanks.classList.add('show');
+
+        console.log('Выбрано:', selectedDrinks);
     });
 });
+
+// Анимация тряски для заблокированных
+const shakeStyle = document.createElement('style');
+shakeStyle.textContent = `
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20% { transform: translateX(-4px); }
+        40% { transform: translateX(4px); }
+        60% { transform: translateX(-3px); }
+        80% { transform: translateX(3px); }
+    }
+`;
+document.head.appendChild(shakeStyle);
 </script>
 
 </body>
