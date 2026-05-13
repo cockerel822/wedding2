@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Андрей и Дарья — Приглашение на свадьбу</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    background: #fafaf7;
+    color: #4c5648;
+    text-align: center;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+}
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('invite_style.jpeg') center/cover no-repeat;
+    filter: brightness(0.92) saturate(0.9);
+    z-index: 0;
+}
+
+.hero .overlay {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 70px 40px;
+    border-radius: 40px;
+    max-width: 650px;
+    width: 90%;
+    box-shadow: 0 25px 80px rgba(0,0,0,0.12);
+    animation: fadeInUp 1.2s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.flower-divider {
+    font-size: 28px;
+    letter-spacing: 8px;
+    color: #b08d57;
+    margin: 15px 0;
+    opacity: 0.7;
+}
+
+h1 {
+    font-family: 'Marck Script', cursive;
+    font-size: clamp(60px, 10vw, 100px);
+    color: #b08d57;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 8px rgba(176,141,87,0.15);
+}
+
+.subtitle {
+    font-size: clamp(18px, 2.5vw, 28px);
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    color: #7a8b74;
+    font-weight: 300;
+    margin-bottom: 20px;
+}
+
+.date-hero {
+    font-size: 18px;
+    letter-spacing: 3px;
+    color: #b08d57;
+    font-weight: 500;
+    border-top: 1px solid #d4c5a9;
+    border-bottom: 1px solid #d4c5a9;
+    display: inline-block;
+    padding: 12px 30px;
+    margin-top: 10px;
+}
+
+.section {
+    padding: 60px 20px;
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.card {
+    background: white;
+    border-radius: 28px;
+    padding: 45px 35px;
+    margin: 30px 0;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.05), 0 2px 8px rgba(0,0,0,0.03);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInUp 0.8s ease-out both;
+}
+
+.card:nth-child(2) { animation-delay: 0.15s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.45s; }
+.card:nth-child(5) { animation-delay: 0.6s; }
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+}
+
+.card h2 {
+    font-family: 'Marck Script', cursive;
+    font-size: clamp(30px, 5vw, 42px);
+    color: #b08d57;
+    font-weight: 400;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.card p {
+    font-size: 16px;
+    color: #6b7b65;
+    font-weight: 300;
+    line-height: 1.9;
+}
+
+.gold {
+    color: #b08d57 !important;
+}
+
+.timer {
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 500;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, #fdf8f0, #f7efdf);
+    display: inline-block;
+    padding: 18px 35px;
+    border-radius: 50px;
+    margin-top: 10px;
+    box-shadow: inset 0 2px 10px rgba(176,141,87,0.1);
+}
+
+.timer-blink {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-top: 15px;
+}
+
+@media (max-width: 600px) {
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 35px 25px;
+    }
+
+    .hero .overlay {
+        padding: 50px 25px;
+    }
+}
+
+.detail-item {
+    background: #fdfaf5;
+    border-radius: 22px;
+    padding: 28px 20px;
+    border: 1px solid #eee5d5;
+}
+
+.detail-item .icon {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.detail-item strong {
+    display: block;
+    font-size: 20px;
+    color: #b08d57;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.detail-item span {
+    font-size: 15px;
+    color: #7a8b74;
+}
+
+.card-final {
+    background: linear-gradient(135deg, #fdf8f0, #f5ecdb);
+    border: 2px solid #d4c5a9;
+}
+
+.card-final .names {
+    font-family: 'Marck Script', cursive;
+    font-size: clamp(40px, 7vw, 56px);
+    color: #b08d57;
+    margin: 10px 0;
+}
+
+.leaf-decor {
+    font-size: 24px;
+    opacity: 0.6;
+    letter-spacing: 10px;
+    margin: 15px 0 -10px;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #fafaf7;
+}
+::-webkit-scrollbar-thumb {
+    background: #d4c5a9;
+    border-radius: 20px;
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+    <div class="overlay">
+        <div class="flower-divider">✿ ❀ ✿</div>
+        <h1>А & Д</h1>
+        <div class="subtitle">Андрей и Дарья</div>
+        <div class="date-hero">22 августа 2026</div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="card">
+        <h2>Дорогие гости!</h2>
+        <p>Мы счастливы пригласить вас разделить<br>с нами один из самых важных дней в нашей жизни.<br>Ваше присутствие — лучший подарок для нас.</p>
+        <div class="leaf-decor">🌿</div>
+    </div>
+
+    <div class="card">
+        <h2>До свадьбы осталось</h2>
+        <div class="timer gold" id="timer">Считаем...</div>
+    </div>
+
+    <div class="card">
+        <h2>Детали дня</h2>
+        <div class="details-grid">
+            <div class="detail-item">
+                <div class="icon">💒</div>
+                <strong>Регистрация</strong>
+                <span>15:40</span>
+                <span>г. Тверь, Свободный пер., 5</span>
+            </div>
+            <div class="detail-item">
+                <div class="icon">🥂</div>
+                <strong>Банкет</strong>
+                <span>17:00</span>
+                <span>Отель «Тверь»<br>Петербургское ш., 130</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-final">
+        <p>С любовью и трепетом,</p>
+        <div class="names">Андрей и Дарья</div>
+        <div class="flower-divider" style="margin-top:15px;">✿ ❀ ✿</div>
+    </div>
+</section>
+
+<script>
+const weddingDate = new Date("2026-08-22T15:40:00");
+
+function updateTimer() {
+    const now = new Date();
+    const diff = weddingDate - now;
+
+    if (diff <= 0) {
+        document.getElementById("timer").innerHTML = "🎉 Сегодня! 🎉";
+        return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    const dayWord = getDayWord(days);
+    const hourWord = getWord(hours, ['час', 'часа', 'часов']);
+    const minuteWord = getWord(minutes, ['минута', 'минуты', 'минут']);
+    const secondWord = getWord(seconds, ['секунда', 'секунды', 'секунд']);
+
+    const timerEl = document.getElementById("timer");
+    timerEl.innerHTML = `
+        ${days} ${dayWord}<br>
+        ${hours} ${hourWord} ${minutes} ${minuteWord} ${seconds} ${secondWord}
+    `;
+
+    if (diff < 1000 * 60 * 60 * 24) {
+        timerEl.classList.add('timer-blink');
+    } else {
+        timerEl.classList.remove('timer-blink');
+    }
+}
+
+function getDayWord(n) {
+    if (n % 100 >= 11 && n % 100 <= 19) return 'дней';
+    const last = n % 10;
+    if (last === 1) return 'день';
+    if (last >= 2 && last <= 4) return 'дня';
+    return 'дней';
+}
+
+function getWord(n, forms) {
+    if (n % 100 >= 11 && n % 100 <= 19) return forms[2];
+    const last = n % 10;
+    if (last === 1) return forms[0];
+    if (last >= 2 && last <= 4) return forms[1];
+    return forms[2];
+}
+
+updateTimer();
+setInterval(updateTimer, 1000);
+</script>
+
+</body>
+</html>
