@@ -26,17 +26,21 @@ body {
     min-height: 100vh;
 }
 
-/* ---------- ДЕКОРАТИВНЫЙ ФОН ---------- */
+/* ---------- ФОН ---------- */
+/* Можешь заменить url на свою картинку фона! */
 body::before {
     content: '';
     position: fixed;
     inset: 0;
     z-index: -2;
+    /* Замени 'bg_texture.jpg' на свою картинку, если хочешь */
     background:
+        /* Акварельные разводы */
         radial-gradient(ellipse at 20% 20%, rgba(176,141,87,0.06) 0%, transparent 50%),
         radial-gradient(ellipse at 80% 40%, rgba(200,180,140,0.05) 0%, transparent 50%),
         radial-gradient(ellipse at 50% 70%, rgba(176,141,87,0.04) 0%, transparent 50%),
         radial-gradient(ellipse at 10% 80%, rgba(200,170,120,0.06) 0%, transparent 40%),
+        /* Текстура */
         repeating-linear-gradient(
             45deg,
             transparent,
@@ -44,11 +48,12 @@ body::before {
             rgba(176,141,87,0.015) 2px,
             rgba(176,141,87,0.015) 4px
         ),
+        /* Основной градиент */
         linear-gradient(180deg, #fdfbf7 0%, #faf7f0 30%, #f8f4ec 60%, #faf7f2 100%);
 }
 
-/* ---------- ПАДАЮЩИЕ ЛИСТЬЯ ---------- */
-.leaves-container {
+/* ---------- АНИМИРОВАННЫЕ ЛИСТЬЯ (стильные, не мультяшные) ---------- */
+.elegant-leaves {
     position: fixed;
     inset: 0;
     pointer-events: none;
@@ -56,100 +61,69 @@ body::before {
     overflow: hidden;
 }
 
-.leaf {
+.elegant-leaf {
     position: absolute;
-    top: -10%;
-    font-size: 24px;
+    top: -5%;
     opacity: 0;
-    animation: fall linear infinite;
+    animation: elegantFall linear infinite;
 }
 
-.leaf:nth-child(1) { left: 5%; font-size: 28px; animation-duration: 14s; animation-delay: 0s; }
-.leaf:nth-child(2) { left: 15%; font-size: 20px; animation-duration: 16s; animation-delay: 2s; }
-.leaf:nth-child(3) { left: 25%; font-size: 32px; animation-duration: 13s; animation-delay: 4s; }
-.leaf:nth-child(4) { left: 35%; font-size: 22px; animation-duration: 17s; animation-delay: 1s; }
-.leaf:nth-child(5) { left: 45%; font-size: 26px; animation-duration: 15s; animation-delay: 5s; }
-.leaf:nth-child(6) { left: 55%; font-size: 30px; animation-duration: 14s; animation-delay: 3s; }
-.leaf:nth-child(7) { left: 65%; font-size: 24px; animation-duration: 16s; animation-delay: 6s; }
-.leaf:nth-child(8) { left: 75%; font-size: 28px; animation-duration: 12s; animation-delay: 1.5s; }
-.leaf:nth-child(9) { left: 85%; font-size: 20px; animation-duration: 18s; animation-delay: 3.5s; }
-.leaf:nth-child(10) { left: 92%; font-size: 26px; animation-duration: 15s; animation-delay: 5.5s; }
-.leaf:nth-child(11) { left: 10%; font-size: 18px; animation-duration: 19s; animation-delay: 7s; }
-.leaf:nth-child(12) { left: 50%; font-size: 22px; animation-duration: 13s; animation-delay: 8s; }
+/* Использую изящные контуры — веточки с листьями */
+.elegant-leaf::before {
+    content: '';
+    display: block;
+    width: 2px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, rgba(176,141,87,0.3));
+    margin: 0 auto 4px;
+    border-radius: 1px;
+}
 
-@keyframes fall {
+.elegant-leaf::after {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 10px;
+    background: rgba(176,141,87,0.15);
+    border-radius: 0 80% 0 80%;
+    margin: 0 auto;
+    transform: rotate(-30deg);
+}
+
+.elegant-leaf:nth-child(1) { left: 5%; animation-duration: 16s; animation-delay: 0s; }
+.elegant-leaf:nth-child(2) { left: 12%; animation-duration: 18s; animation-delay: 3s; }
+.elegant-leaf:nth-child(3) { left: 22%; animation-duration: 14s; animation-delay: 6s; }
+.elegant-leaf:nth-child(4) { left: 30%; animation-duration: 20s; animation-delay: 1s; }
+.elegant-leaf:nth-child(5) { left: 40%; animation-duration: 15s; animation-delay: 4s; }
+.elegant-leaf:nth-child(6) { left: 50%; animation-duration: 17s; animation-delay: 7s; }
+.elegant-leaf:nth-child(7) { left: 58%; animation-duration: 19s; animation-delay: 2s; }
+.elegant-leaf:nth-child(8) { left: 68%; animation-duration: 13s; animation-delay: 5s; }
+.elegant-leaf:nth-child(9) { left: 78%; animation-duration: 16s; animation-delay: 8s; }
+.elegant-leaf:nth-child(10) { left: 88%; animation-duration: 18s; animation-delay: 3.5s; }
+
+@keyframes elegantFall {
     0% {
-        transform: translateY(-10vh) rotate(0deg) scale(1);
+        transform: translateY(-5vh) rotate(0deg) scale(1);
         opacity: 0;
     }
-    5% {
-        opacity: 0.5;
+    10% {
+        opacity: 0.35;
     }
-    30% {
-        transform: translateY(30vh) rotate(120deg) scale(0.9);
-        opacity: 0.4;
+    40% {
+        transform: translateY(40vh) rotate(60deg) translateX(20px) scale(0.85);
+        opacity: 0.25;
     }
-    60% {
-        transform: translateY(60vh) rotate(250deg) scale(0.8);
-        opacity: 0.3;
-    }
-    85% {
-        opacity: 0.15;
+    70% {
+        transform: translateY(70vh) rotate(140deg) translateX(-15px) scale(0.7);
+        opacity: 0.12;
     }
     100% {
-        transform: translateY(105vh) rotate(360deg) scale(0.5);
+        transform: translateY(105vh) rotate(200deg) translateX(5px) scale(0.4);
         opacity: 0;
     }
 }
 
-/* ---------- БОКОВЫЕ ЛИСТЬЯ ---------- */
-.side-leaves-left,
-.side-leaves-right {
-    position: fixed;
-    top: 0;
-    height: 100vh;
-    pointer-events: none;
-    z-index: -1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 10vh 0;
-}
-
-.side-leaves-left {
-    left: 8px;
-    align-items: flex-start;
-}
-
-.side-leaves-right {
-    right: 8px;
-    align-items: flex-end;
-}
-
-.side-leaf {
-    font-size: clamp(20px, 3vw, 36px);
-    opacity: 0.25;
-    animation: swaySide 5s ease-in-out infinite;
-}
-
-.side-leaf:nth-child(odd) { animation-delay: 0s; }
-.side-leaf:nth-child(even) { animation-delay: 2.5s; }
-
-@keyframes swaySide {
-    0%, 100% { transform: rotate(0deg) translateY(0); }
-    25% { transform: rotate(8deg) translateY(-5px); }
-    50% { transform: rotate(-5deg) translateY(-10px); }
-    75% { transform: rotate(3deg) translateY(-3px); }
-}
-
-@media (max-width: 768px) {
-    .side-leaves-left,
-    .side-leaves-right {
-        display: none;
-    }
-}
-
-/* ---------- HERO ---------- */
+/* ---------- HERO (прозрачнее на 70%) ---------- */
 .hero {
     min-height: 100vh;
     display: flex;
@@ -171,14 +145,14 @@ body::before {
 .hero .overlay {
     position: relative;
     z-index: 1;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
+    background: rgba(255, 255, 255, 0.3); /* Было 0.8, стало 0.3 = 70% прозрачности */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     padding: 60px 30px;
     border-radius: 40px;
     max-width: 480px;
     width: 90%;
-    box-shadow: 0 25px 80px rgba(0,0,0,0.12);
+    box-shadow: 0 25px 80px rgba(0,0,0,0.08);
     animation: fadeInUp 1.2s ease-out;
 }
 
@@ -236,7 +210,6 @@ body::before {
     box-shadow: 0 25px 70px rgba(0,0,0,0.12);
 }
 
-/* Золотая рамка при наведении */
 .card::after {
     content: '';
     position: absolute;
@@ -365,11 +338,84 @@ h1 {
     padding: 24px 18px;
     border: 1px solid #eee5d5;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 .detail-item:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+/* ---------- АНИМАЦИЯ БОКАЛОВ ---------- */
+.banket-icon-wrap {
+    position: relative;
+    display: inline-block;
+}
+
+/* Бокалы */
+.banket-icon-wrap .icon-main {
+    font-size: 28px;
+    display: inline-block;
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.detail-item:hover .banket-icon-wrap .icon-main {
+    transform: scale(1.1);
+}
+
+/* Искорки вокруг бокалов */
+.sparkle {
+    position: absolute;
+    font-size: 12px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.sparkle-1 { top: -5px; left: 5px; }
+.sparkle-2 { top: 5px; right: -5px; }
+.sparkle-3 { bottom: -5px; left: 0; }
+.sparkle-4 { top: 10px; left: -8px; }
+
+.detail-item:hover .sparkle-1 { animation: sparkle 0.8s ease-out 0s; }
+.detail-item:hover .sparkle-2 { animation: sparkle 0.8s ease-out 0.15s; }
+.detail-item:hover .sparkle-3 { animation: sparkle 0.8s ease-out 0.3s; }
+.detail-item:hover .sparkle-4 { animation: sparkle 0.8s ease-out 0.1s; }
+
+@keyframes sparkle {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) scale(0);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(var(--dx, 5px), var(--dy, -8px)) scale(1.4);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--dx2, 10px), var(--dy2, -15px)) scale(0.6);
+    }
+}
+
+.sparkle-1 { --dx: 6px; --dy: -10px; --dx2: 12px; --dy2: -18px; }
+.sparkle-2 { --dx: -5px; --dy: -8px; --dx2: -10px; --dy2: -15px; }
+.sparkle-3 { --dx: 4px; --dy: -6px; --dx2: 8px; --dy2: -12px; }
+.sparkle-4 { --dx: -6px; --dy: -7px; --dx2: -12px; --dy2: -14px; }
+
+/* Бокалы чокаются при наведении */
+@keyframes toast {
+    0%, 100% { transform: rotate(0); }
+    20% { transform: rotate(-10deg); }
+    40% { transform: rotate(8deg); }
+    60% { transform: rotate(-5deg); }
+    80% { transform: rotate(3deg); }
+}
+
+.detail-item:hover .banket-icon-wrap .toast-anim {
+    display: inline-block;
+    animation: toast 0.8s ease-out;
 }
 
 .detail-item .icon {
@@ -505,36 +551,18 @@ h1 {
 </head>
 <body>
 
-<!-- Боковые листья (видны на десктопе) -->
-<div class="side-leaves-left">
-    <span class="side-leaf">🌿</span>
-    <span class="side-leaf">🍃</span>
-    <span class="side-leaf">🌿</span>
-    <span class="side-leaf">🍃</span>
-    <span class="side-leaf">🌿</span>
-</div>
-<div class="side-leaves-right">
-    <span class="side-leaf">🍃</span>
-    <span class="side-leaf">🌿</span>
-    <span class="side-leaf">🍃</span>
-    <span class="side-leaf">🌿</span>
-    <span class="side-leaf">🍃</span>
-</div>
-
-<!-- Падающие листья -->
-<div class="leaves-container">
-    <span class="leaf">🍃</span>
-    <span class="leaf">🌿</span>
-    <span class="leaf">🍂</span>
-    <span class="leaf">🌱</span>
-    <span class="leaf">🍃</span>
-    <span class="leaf">🌿</span>
-    <span class="leaf">🍂</span>
-    <span class="leaf">🌱</span>
-    <span class="leaf">🍃</span>
-    <span class="leaf">🌿</span>
-    <span class="leaf">🍂</span>
-    <span class="leaf">🌱</span>
+<!-- Стильные анимированные листья (веточки) -->
+<div class="elegant-leaves">
+    <div class="elegant-leaf"></div>
+    <div class="elegant-leaf"></div>
+    <div class="elegant-leaf"></div>
+    <div class="elegant-leaf"></div>
+    <div class="elegant-leaf"></div>
+    <div class="elegant-leaf"></div>
+    <div class="elegant-leaf"></div>
+    <div class="elegant-leaf"></div>
+    <div class="elegant-leaf"></div>
+    <div class="elegant-leaf"></div>
 </div>
 
 <section class="hero">
@@ -571,7 +599,13 @@ h1 {
                 <a href="https://yandex.ru/maps/org/glavnoye_upravleniye_zapisi_aktov_grazhdanskogo_sostoyaniya/104116805635/" target="_blank" class="map-link">📍 Открыть в Яндекс Картах</a>
             </div>
             <div class="detail-item">
-                <div class="icon">🥂</div>
+                <div class="banket-icon-wrap">
+                    <span class="toast-anim">🥂</span>
+                    <span class="sparkle sparkle-1">✨</span>
+                    <span class="sparkle sparkle-2">✨</span>
+                    <span class="sparkle sparkle-3">✨</span>
+                    <span class="sparkle sparkle-4">✨</span>
+                </div>
                 <strong>Банкет</strong>
                 <span>17:00</span>
                 <span>Отель «Тверь»<br>Петербургское ш., 130</span>
@@ -642,7 +676,7 @@ function getWord(n, forms) {
 updateTimer();
 setInterval(updateTimer, 1000);
 
-// ---------- АНИМАЦИИ ПРИ СКРОЛЛЕ ----------
+// Анимации при скролле
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
