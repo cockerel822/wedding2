@@ -32,7 +32,6 @@ body {
     min-height: 100vh;
 }
 
-/* Фон */
 body::before {
     content: '';
     position: fixed; inset: 0; z-index: -2;
@@ -40,11 +39,9 @@ body::before {
         url('bg_texture.jpg') center/cover no-repeat,
         radial-gradient(ellipse at 20% 20%, rgba(107,124,94,0.06) 0%, transparent 50%),
         radial-gradient(ellipse at 80% 40%, rgba(138,155,126,0.05) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 70%, rgba(107,124,94,0.04) 0%, transparent 50%),
         linear-gradient(180deg, #fcfdfa 0%, #f8faf5 30%, #f5f7f0 60%, #faf9f5 100%);
 }
 
-/* Листья */
 .elegant-leaves { position: fixed; inset: 0; pointer-events: none; z-index: -1; overflow: hidden; }
 .elegant-leaf { position: absolute; top: -5%; opacity: 0; animation: elegantFall linear infinite; }
 .elegant-leaf::before { content: ''; display: block; width: 2px; height: 40px; background: linear-gradient(to bottom, transparent, rgba(138,155,126,0.3)); margin: 0 auto 4px; border-radius: 1px; }
@@ -68,7 +65,6 @@ body::before {
     100% { transform: translateY(105vh) rotate(200deg) translateX(5px) scale(0.4); opacity: 0; }
 }
 
-/* HERO */
 .hero {
     min-height: 100vh;
     display: flex; align-items: center; justify-content: center;
@@ -93,7 +89,6 @@ body::before {
     animation: fadeInUp 1.2s ease-out;
 }
 
-/* Анимации */
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
 @keyframes fadeInRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
@@ -103,10 +98,8 @@ body::before {
 h1 { font-family: 'Marck Script', cursive; font-size: clamp(60px, 10vw, 100px); color: var(--gold); font-weight: 400; line-height: 1; margin-bottom: 5px; }
 .date-hero { font-size: 18px; letter-spacing: 3px; color: var(--green-dark); font-weight: 500; border-top: 1px solid var(--green-light); border-bottom: 1px solid var(--green-light); display: inline-block; padding: 12px 30px; margin-top: 10px; }
 
-/* Секции */
 .section { padding: 40px 20px 60px; max-width: 580px; margin: 0 auto; }
 
-/* Карточки */
 .card {
     background: var(--white);
     border-radius: 24px;
@@ -126,7 +119,6 @@ h1 { font-family: 'Marck Script', cursive; font-size: clamp(60px, 10vw, 100px); 
 .card h2 { font-family: 'Marck Script', cursive; font-size: clamp(26px, 5vw, 34px); color: var(--green-dark); font-weight: 400; margin-bottom: 16px; }
 .card p { font-size: 14px; color: var(--text); font-weight: 300; line-height: 1.8; }
 
-/* Цветовая гамма */
 .colors-row { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-top: 8px; }
 .color-swatch { display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 11px; color: var(--text); }
 .color-circle { width: 34px; height: 34px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
@@ -136,22 +128,18 @@ h1 { font-family: 'Marck Script', cursive; font-size: clamp(60px, 10vw, 100px); 
 .color-4 { background: #8a9b7e; }
 .color-5 { background: #c9a962; }
 
-/* Таймлайн */
 .timeline { position: relative; padding-left: 20px; text-align: left; max-width: 280px; margin: 8px auto 0; }
 .timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, transparent, var(--green-light), transparent); }
 .timeline-item { position: relative; padding: 8px 0 8px 26px; font-size: 13px; color: var(--text); }
 .timeline-item::before { content: ''; position: absolute; left: 2px; top: 15px; width: 10px; height: 10px; background: var(--gold); border-radius: 50%; box-shadow: 0 0 0 3px var(--green-pale); }
 .timeline-item strong { display: block; color: var(--green-dark); font-size: 15px; }
 
-/* Хештег */
 .hashtag-block { display: inline-block; background: linear-gradient(135deg, var(--green-pale), #eef3e9); padding: 12px 24px; border-radius: 50px; font-size: 17px; color: var(--green-dark); font-weight: 500; letter-spacing: 2px; border: 1px dashed var(--green-light); }
 
-/* Таймер */
 .timer { font-size: clamp(22px, 4vw, 30px); font-weight: 500; letter-spacing: 2px; background: linear-gradient(135deg, var(--green-pale), #eef3e9); display: inline-block; padding: 14px 28px; border-radius: 50px; margin-top: 8px; }
 .timer-blink { animation: pulse 2s infinite; }
 @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.7;} }
 
-/* Детали дня */
 .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px; }
 @media (max-width: 600px) { .details-grid { grid-template-columns: 1fr; } }
 .detail-item { background: var(--green-pale); border-radius: 18px; padding: 20px 16px; border: 1px solid #dce4d2; }
@@ -160,7 +148,6 @@ h1 { font-family: 'Marck Script', cursive; font-size: clamp(60px, 10vw, 100px); 
 .detail-item .map-link { display: inline-block; margin-top: 8px; font-size: 12px; color: var(--green-dark); text-decoration: none; border-bottom: 1px dashed var(--green-light); padding-bottom: 2px; }
 .icon { font-size: 26px; margin-bottom: 6px; display: block; }
 
-/* Опрос */
 .poll-counter { font-size: 12px; color: var(--green-dark); margin-bottom: 14px; }
 .poll-buttons { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
 @media (max-width: 600px) { .poll-buttons { grid-template-columns: 1fr 1fr; } }
@@ -169,7 +156,7 @@ h1 { font-family: 'Marck Script', cursive; font-size: clamp(60px, 10vw, 100px); 
     padding: 12px 8px; cursor: pointer;
     font-family: 'Raleway', sans-serif; font-size: 13px; color: var(--text);
     display: flex; flex-direction: column; align-items: center; gap: 4px;
-    transition: all 0.3s;
+    transition: all 0.3s; position: relative; overflow: visible;
 }
 .poll-btn .emoji { font-size: 22px; }
 .poll-btn:hover { border-color: var(--green-dark); background: #f0f5ea; transform: translateY(-2px); }
@@ -179,7 +166,6 @@ h1 { font-family: 'Marck Script', cursive; font-size: clamp(60px, 10vw, 100px); 
 .poll-thanks { margin-top: 14px; font-size: 14px; color: var(--green-dark); font-weight: 500; opacity: 0; transition: all 0.5s ease; }
 .poll-thanks.show { opacity: 1; }
 
-/* Конфетти */
 .confetti-particle { position: fixed; pointer-events: none; z-index: 9999; font-size: 14px; animation: confettiFall 1.1s ease-out forwards; }
 @keyframes confettiFall {
     0% { transform: translate(0,0) rotate(0deg) scale(0); opacity: 1; }
@@ -187,7 +173,6 @@ h1 { font-family: 'Marck Script', cursive; font-size: clamp(60px, 10vw, 100px); 
     100% { transform: translate(var(--fx), var(--fy)) rotate(720deg) scale(0.3); opacity: 0; }
 }
 
-/* RSVP */
 .rsvp-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 6px; }
 .rsvp-btn { flex: 1; min-width: 120px; padding: 14px 18px; border-radius: 18px; border: 2px solid var(--green-light); background: var(--green-pale); font-family: 'Raleway', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; transition: all 0.3s; color: var(--green-dark); }
 .rsvp-btn:hover { transform: translateY(-3px); }
@@ -196,15 +181,12 @@ h1 { font-family: 'Marck Script', cursive; font-size: clamp(60px, 10vw, 100px); 
 .rsvp-thanks { margin-top: 12px; font-size: 14px; color: var(--green-dark); opacity: 0; transition: all 0.5s ease; }
 .rsvp-thanks.show { opacity: 1; }
 
-/* Финал */
 .card-final { background: linear-gradient(135deg, #f5f7f0, #e8efe2); border: 2px solid var(--green-light); }
 .card-final .names { font-family: 'Marck Script', cursive; font-size: clamp(36px, 7vw, 48px); color: var(--green-dark); margin: 8px 0; }
 
-/* Цитата */
 .quote-divider { padding: 30px 20px; font-family: 'Marck Script', cursive; font-size: clamp(20px, 4vw, 28px); color: var(--green-mid); opacity: 0; transition: all 0.8s ease; }
 .quote-divider.visible { opacity: 0.8; }
 
-/* Скроллбар */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--cream); }
 ::-webkit-scrollbar-thumb { background: var(--green-light); border-radius: 20px; }
@@ -216,7 +198,6 @@ h1 { font-family: 'Marck Script', cursive; font-size: clamp(60px, 10vw, 100px); 
 </style>
 </head>
 <body>
-
 <div class="elegant-leaves">
     <div class="elegant-leaf"></div><div class="elegant-leaf"></div><div class="elegant-leaf"></div>
     <div class="elegant-leaf"></div><div class="elegant-leaf"></div><div class="elegant-leaf"></div>
@@ -224,7 +205,6 @@ h1 { font-family: 'Marck Script', cursive; font-size: clamp(60px, 10vw, 100px); 
     <div class="elegant-leaf"></div>
 </div>
 
-<!-- HERO -->
 <section class="hero">
     <div class="overlay">
         <div class="flower-divider">✿ ❀ ✿</div>
@@ -233,16 +213,13 @@ h1 { font-family: 'Marck Script', cursive; font-size: clamp(60px, 10vw, 100px); 
     </div>
 </section>
 
-<!-- КОНТЕНТ -->
 <section class="section">
 
-    <!-- Приглашение -->
     <div class="card card-from-left">
         <h2>Дорогие гости!</h2>
         <p>Мы счастливы пригласить вас разделить с нами один из самых важных дней в нашей жизни. Ваше присутствие — лучший подарок для нас.</p>
     </div>
 
-    <!-- Цветовая гамма -->
     <div class="card card-from-right">
         <h2>🎨 Цветовая гамма</h2>
         <p>Будем рады, если вы поддержите цвета нашей свадьбы:</p>
@@ -255,7 +232,6 @@ h1 { font-family: 'Marck Script', cursive; font-size: clamp(60px, 10vw, 100px); 
         </div>
     </div>
 
-    <!-- Подтверждение -->
     <div class="card card-scale">
         <h2>💌 Подтверждение</h2>
         <p>Пожалуйста, сообщите, сможете ли вы быть с нами:</p>
@@ -266,16 +242,13 @@ h1 { font-family: 'Marck Script', cursive; font-size: clamp(60px, 10vw, 100px); 
         <div class="rsvp-thanks" id="rsvpThanks"></div>
     </div>
 
-    <!-- Цитата -->
     <div class="quote-divider" id="quote">«Любовь — это когда счастье другого становится твоим собственным»</div>
 
-    <!-- Таймер -->
     <div class="card card-from-right">
         <h2>До свадьбы осталось</h2>
         <div class="timer" id="timer">Считаем...</div>
     </div>
 
-    <!-- Таймлайн -->
     <div class="card card-from-left">
         <h2>🕐 Расписание дня</h2>
         <div class="timeline">
@@ -288,7 +261,6 @@ h1 { font-family: 'Marck Script', cursive; font-size: clamp(60px, 10vw, 100px); 
         </div>
     </div>
 
-    <!-- Детали -->
     <div class="card card-scale">
         <h2>📍 Детали дня</h2>
         <div class="details-grid">
@@ -309,14 +281,12 @@ h1 { font-family: 'Marck Script', cursive; font-size: clamp(60px, 10vw, 100px); 
         </div>
     </div>
 
-    <!-- Хештег -->
     <div class="card card-from-right">
         <h2>📸 Хештег свадьбы</h2>
         <p>Делитесь фотографиями с хештегом:</p>
         <div class="hashtag-block">#АндрейДарья2026</div>
     </div>
 
-    <!-- Опрос -->
     <div class="card card-from-left">
         <h2>🍷 Ваши предпочтения</h2>
         <p class="poll-counter" id="pollCounter">Выберите до 3 вариантов (0/3)</p>
@@ -331,7 +301,6 @@ h1 { font-family: 'Marck Script', cursive; font-size: clamp(60px, 10vw, 100px); 
         <div class="poll-thanks" id="pollThanks">Отлично! Будем знать ваши предпочтения! 🎉</div>
     </div>
 
-    <!-- Финал -->
     <div class="card card-from-left card-final">
         <p>С любовью и трепетом,</p>
         <div class="names">Андрей и Дарья</div>
@@ -341,7 +310,6 @@ h1 { font-family: 'Marck Script', cursive; font-size: clamp(60px, 10vw, 100px); 
 </section>
 
 <script>
-// Таймер
 const weddingDate = new Date("2026-08-22T15:40:00");
 function updateTimer() {
     const now = new Date(); const diff = weddingDate - now;
@@ -358,12 +326,10 @@ function updateTimer() {
 }
 updateTimer(); setInterval(updateTimer, 1000);
 
-// Скролл-анимации
 const observer = new IntersectionObserver((e) => { e.forEach(en => { if(en.isIntersecting) en.target.classList.add('visible'); }) }, { threshold: 0.15 });
 document.querySelectorAll('.card').forEach(c => observer.observe(c));
 const q = document.getElementById('quote'); if(q) observer.observe(q);
 
-// RSVP
 document.querySelectorAll('.rsvp-btn').forEach(b => {
     b.addEventListener('click', function() {
         document.querySelectorAll('.rsvp-btn').forEach(x => { x.classList.remove('selected-yes','selected-no'); });
@@ -374,7 +340,6 @@ document.querySelectorAll('.rsvp-btn').forEach(b => {
     });
 });
 
-// Опрос
 const MAX = 3;
 const btns = document.querySelectorAll('.poll-btn');
 const thanks = document.getElementById('pollThanks');
@@ -414,5 +379,6 @@ btns.forEach(b => {
     });
 });
 </script>
+
 </body>
 </html>
