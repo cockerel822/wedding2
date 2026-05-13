@@ -23,6 +23,7 @@ body {
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
     position: relative;
+    min-height: 100vh;
 }
 
 /* ---------- ДЕКОРАТИВНЫЙ ФОН ---------- */
@@ -30,14 +31,12 @@ body::before {
     content: '';
     position: fixed;
     inset: 0;
-    z-index: -1;
+    z-index: -2;
     background:
-        /* Нежные цветы-разводы */
         radial-gradient(ellipse at 20% 20%, rgba(176,141,87,0.06) 0%, transparent 50%),
         radial-gradient(ellipse at 80% 40%, rgba(200,180,140,0.05) 0%, transparent 50%),
         radial-gradient(ellipse at 50% 70%, rgba(176,141,87,0.04) 0%, transparent 50%),
         radial-gradient(ellipse at 10% 80%, rgba(200,170,120,0.06) 0%, transparent 40%),
-        /* Лёгкая текстура */
         repeating-linear-gradient(
             45deg,
             transparent,
@@ -45,42 +44,110 @@ body::before {
             rgba(176,141,87,0.015) 2px,
             rgba(176,141,87,0.015) 4px
         ),
-        /* Основной фон */
         linear-gradient(180deg, #fdfbf7 0%, #faf7f0 30%, #f8f4ec 60%, #faf7f2 100%);
 }
 
-/* Плавающие лепестки */
-@keyframes float1 {
-    0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.15; }
-    25% { transform: translate(30px, -40px) rotate(10deg); opacity: 0.25; }
-    50% { transform: translate(-20px, -80px) rotate(-5deg); opacity: 0.2; }
-    75% { transform: translate(15px, -120px) rotate(8deg); opacity: 0.1; }
-    100% { transform: translate(0, -160px) rotate(0deg); opacity: 0; }
-}
-@keyframes float2 {
-    0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.12; }
-    33% { transform: translate(-25px, -50px) rotate(-8deg); opacity: 0.22; }
-    66% { transform: translate(20px, -100px) rotate(6deg); opacity: 0.15; }
-    100% { transform: translate(-10px, -150px) rotate(-3deg); opacity: 0; }
-}
-@keyframes float3 {
-    0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 0.1; }
-    50% { transform: translate(15px, -60px) rotate(12deg) scale(1.1); opacity: 0.2; }
-    100% { transform: translate(-15px, -130px) rotate(-6deg) scale(1); opacity: 0; }
-}
-
-.petal {
+/* ---------- ПАДАЮЩИЕ ЛИСТЬЯ ---------- */
+.leaves-container {
     position: fixed;
-    z-index: -1;
+    inset: 0;
     pointer-events: none;
-    font-size: 20px;
+    z-index: -1;
+    overflow: hidden;
 }
 
-.petal-1 { top: 80%; left: 10%; animation: float1 8s ease-in-out infinite; }
-.petal-2 { top: 70%; left: 85%; animation: float2 10s ease-in-out infinite 1s; }
-.petal-3 { top: 60%; left: 50%; animation: float3 9s ease-in-out infinite 2s; }
-.petal-4 { top: 90%; left: 30%; animation: float1 11s ease-in-out infinite 3s; }
-.petal-5 { top: 75%; left: 70%; animation: float2 8.5s ease-in-out infinite 4s; }
+.leaf {
+    position: absolute;
+    top: -10%;
+    font-size: 24px;
+    opacity: 0;
+    animation: fall linear infinite;
+}
+
+.leaf:nth-child(1) { left: 5%; font-size: 28px; animation-duration: 14s; animation-delay: 0s; }
+.leaf:nth-child(2) { left: 15%; font-size: 20px; animation-duration: 16s; animation-delay: 2s; }
+.leaf:nth-child(3) { left: 25%; font-size: 32px; animation-duration: 13s; animation-delay: 4s; }
+.leaf:nth-child(4) { left: 35%; font-size: 22px; animation-duration: 17s; animation-delay: 1s; }
+.leaf:nth-child(5) { left: 45%; font-size: 26px; animation-duration: 15s; animation-delay: 5s; }
+.leaf:nth-child(6) { left: 55%; font-size: 30px; animation-duration: 14s; animation-delay: 3s; }
+.leaf:nth-child(7) { left: 65%; font-size: 24px; animation-duration: 16s; animation-delay: 6s; }
+.leaf:nth-child(8) { left: 75%; font-size: 28px; animation-duration: 12s; animation-delay: 1.5s; }
+.leaf:nth-child(9) { left: 85%; font-size: 20px; animation-duration: 18s; animation-delay: 3.5s; }
+.leaf:nth-child(10) { left: 92%; font-size: 26px; animation-duration: 15s; animation-delay: 5.5s; }
+.leaf:nth-child(11) { left: 10%; font-size: 18px; animation-duration: 19s; animation-delay: 7s; }
+.leaf:nth-child(12) { left: 50%; font-size: 22px; animation-duration: 13s; animation-delay: 8s; }
+
+@keyframes fall {
+    0% {
+        transform: translateY(-10vh) rotate(0deg) scale(1);
+        opacity: 0;
+    }
+    5% {
+        opacity: 0.5;
+    }
+    30% {
+        transform: translateY(30vh) rotate(120deg) scale(0.9);
+        opacity: 0.4;
+    }
+    60% {
+        transform: translateY(60vh) rotate(250deg) scale(0.8);
+        opacity: 0.3;
+    }
+    85% {
+        opacity: 0.15;
+    }
+    100% {
+        transform: translateY(105vh) rotate(360deg) scale(0.5);
+        opacity: 0;
+    }
+}
+
+/* ---------- БОКОВЫЕ ЛИСТЬЯ ---------- */
+.side-leaves-left,
+.side-leaves-right {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    pointer-events: none;
+    z-index: -1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10vh 0;
+}
+
+.side-leaves-left {
+    left: 8px;
+    align-items: flex-start;
+}
+
+.side-leaves-right {
+    right: 8px;
+    align-items: flex-end;
+}
+
+.side-leaf {
+    font-size: clamp(20px, 3vw, 36px);
+    opacity: 0.25;
+    animation: swaySide 5s ease-in-out infinite;
+}
+
+.side-leaf:nth-child(odd) { animation-delay: 0s; }
+.side-leaf:nth-child(even) { animation-delay: 2.5s; }
+
+@keyframes swaySide {
+    0%, 100% { transform: rotate(0deg) translateY(0); }
+    25% { transform: rotate(8deg) translateY(-5px); }
+    50% { transform: rotate(-5deg) translateY(-10px); }
+    75% { transform: rotate(3deg) translateY(-3px); }
+}
+
+@media (max-width: 768px) {
+    .side-leaves-left,
+    .side-leaves-right {
+        display: none;
+    }
+}
 
 /* ---------- HERO ---------- */
 .hero {
@@ -115,59 +182,36 @@ body::before {
     animation: fadeInUp 1.2s ease-out;
 }
 
-/* ---------- АНИМАЦИИ ПОЯВЛЕНИЯ ---------- */
+/* ---------- АНИМАЦИИ ---------- */
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+    from { opacity: 0; transform: translateX(-40px); }
+    to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes fadeInRight {
-    from {
-        opacity: 0;
-        transform: translateX(40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+    from { opacity: 0; transform: translateX(40px); }
+    to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes scaleIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
 }
 
-/* Карточки изначально скрыты */
+/* ---------- КАРТОЧКИ ---------- */
 .card {
     background: white;
     border-radius: 28px;
     padding: 35px 28px;
     margin: 25px 0;
     box-shadow: 0 10px 40px rgba(0,0,0,0.05), 0 2px 8px rgba(0,0,0,0.03);
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, opacity 0.7s ease;
+    position: relative;
     opacity: 0;
     transform: translateY(40px);
 }
@@ -177,17 +221,6 @@ body::before {
     transform: translateY(0);
 }
 
-.card:nth-child(2) { transition-delay: 0.1s; }
-.card:nth-child(3) { transition-delay: 0.2s; }
-.card:nth-child(4) { transition-delay: 0.3s; }
-.card:nth-child(5) { transition-delay: 0.4s; }
-
-.card:hover {
-    transform: translateY(-8px) !important;
-    box-shadow: 0 25px 70px rgba(0,0,0,0.12);
-}
-
-/* Левые и правые карточки (разные анимации) */
 .card.card-from-left.visible {
     animation: fadeInLeft 0.7s ease-out forwards;
 }
@@ -198,7 +231,12 @@ body::before {
     animation: scaleIn 0.7s ease-out forwards;
 }
 
-/* ---------- БЛЁСТКИ ПРИ НАВЕДЕНИИ ---------- */
+.card:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 25px 70px rgba(0,0,0,0.12);
+}
+
+/* Золотая рамка при наведении */
 .card::after {
     content: '';
     position: absolute;
@@ -214,7 +252,7 @@ body::before {
 }
 
 .card:hover::after {
-    opacity: 0.3;
+    opacity: 0.35;
 }
 
 .flower-divider {
@@ -252,7 +290,6 @@ h1 {
     padding: 60px 20px;
     max-width: 600px;
     margin: 0 auto;
-    position: relative;
 }
 
 .card h2 {
@@ -298,8 +335,8 @@ h1 {
 }
 
 @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.7; transform: scale(1.02); }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
 }
 
 /* ---------- DETAILS ---------- */
@@ -314,11 +351,9 @@ h1 {
     .details-grid {
         grid-template-columns: 1fr;
     }
-
     .card {
         padding: 30px 22px;
     }
-
     .hero .overlay {
         padding: 50px 25px;
     }
@@ -378,19 +413,16 @@ h1 {
 .detail-item .map-link:hover {
     color: #8c6a3d;
     border-bottom: 1px solid #8c6a3d;
-    transform: translateX(3px);
 }
 
 /* ---------- FOOTER CARD ---------- */
 .card-final {
     background: linear-gradient(135deg, #fdf8f0, #f5ecdb);
     border: 2px solid #d4c5a9;
-    position: relative;
     overflow: hidden;
 }
 
-.card-final::before {
-    content: '';
+.card-final .shimmer {
     position: absolute;
     top: -50%;
     left: -50%;
@@ -398,6 +430,8 @@ h1 {
     height: 200%;
     background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
     animation: shimmer 4s ease-in-out infinite;
+    z-index: 0;
+    pointer-events: none;
 }
 
 @keyframes shimmer {
@@ -429,28 +463,17 @@ h1 {
     opacity: 0.6;
     letter-spacing: 10px;
     margin: 15px 0 -10px;
+    display: inline-block;
     animation: sway 3s ease-in-out infinite;
 }
 
 @keyframes sway {
     0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(3deg); }
-    75% { transform: rotate(-3deg); }
+    25% { transform: rotate(5deg); }
+    75% { transform: rotate(-5deg); }
 }
 
-/* ---------- SCROLLBAR ---------- */
-::-webkit-scrollbar {
-    width: 8px;
-}
-::-webkit-scrollbar-track {
-    background: #faf7f2;
-}
-::-webkit-scrollbar-thumb {
-    background: #d4c5a9;
-    border-radius: 20px;
-}
-
-/* ---------- СЕКЦИЯ-РАЗДЕЛИТЕЛЬ С ЦИТАТОЙ ---------- */
+/* ---------- ЦИТАТА ---------- */
 .quote-divider {
     padding: 40px 20px;
     font-family: 'Marck Script', cursive;
@@ -466,16 +489,53 @@ h1 {
     transform: translateY(0);
 }
 
+/* ---------- SCROLLBAR ---------- */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #faf7f2;
+}
+::-webkit-scrollbar-thumb {
+    background: #d4c5a9;
+    border-radius: 20px;
+}
+
 </style>
 </head>
 <body>
 
-<!-- Плавающие лепестки -->
-<div class="petal petal-1">🌸</div>
-<div class="petal petal-2">💮</div>
-<div class="petal petal-3">🌷</div>
-<div class="petal petal-4">✿</div>
-<div class="petal petal-5">🌼</div>
+<!-- Боковые листья (видны на десктопе) -->
+<div class="side-leaves-left">
+    <span class="side-leaf">🌿</span>
+    <span class="side-leaf">🍃</span>
+    <span class="side-leaf">🌿</span>
+    <span class="side-leaf">🍃</span>
+    <span class="side-leaf">🌿</span>
+</div>
+<div class="side-leaves-right">
+    <span class="side-leaf">🍃</span>
+    <span class="side-leaf">🌿</span>
+    <span class="side-leaf">🍃</span>
+    <span class="side-leaf">🌿</span>
+    <span class="side-leaf">🍃</span>
+</div>
+
+<!-- Падающие листья -->
+<div class="leaves-container">
+    <span class="leaf">🍃</span>
+    <span class="leaf">🌿</span>
+    <span class="leaf">🍂</span>
+    <span class="leaf">🌱</span>
+    <span class="leaf">🍃</span>
+    <span class="leaf">🌿</span>
+    <span class="leaf">🍂</span>
+    <span class="leaf">🌱</span>
+    <span class="leaf">🍃</span>
+    <span class="leaf">🌿</span>
+    <span class="leaf">🍂</span>
+    <span class="leaf">🌱</span>
+</div>
 
 <section class="hero">
     <div class="overlay">
@@ -493,7 +553,6 @@ h1 {
         <div class="leaf-decor">🌿</div>
     </div>
 
-    <!-- Разделитель-цитата -->
     <div class="quote-divider" id="quote">«Любовь — это когда счастье другого<br>становится твоим собственным»</div>
 
     <div class="card card-from-right">
@@ -522,6 +581,7 @@ h1 {
     </div>
 
     <div class="card card-from-left card-final">
+        <div class="shimmer"></div>
         <p>С любовью и трепетом,</p>
         <div class="names">Андрей и Дарья</div>
         <div class="flower-divider" style="margin-top:15px;">✿ ❀ ✿</div>
@@ -591,15 +651,13 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, {
     threshold: 0.15,
-    rootMargin: '0px 0px -50px 0px'
+    rootMargin: '0px 0px -30px 0px'
 });
 
-// Отслеживаем все карточки
 document.querySelectorAll('.card').forEach(card => {
     observer.observe(card);
 });
 
-// Отслеживаем цитату
 const quoteEl = document.getElementById('quote');
 if (quoteEl) {
     observer.observe(quoteEl);
